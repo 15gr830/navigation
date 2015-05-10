@@ -1,4 +1,5 @@
 <launch>
+	<groupe name="nav_sys">
 	<env name="ROS_IP" value="192.168.1.149"/>
 
 	<arg name="fcu_url" default="serial:///dev/ttyUSB0:921600" />
@@ -33,4 +34,5 @@
         <remap from="pose" to="pose"/>
 	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
     </node>
+</groupe>
 </launch>
