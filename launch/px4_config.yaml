@@ -130,7 +130,7 @@ mission:
 # vision_pose_estimate
 vision_pose:
   pose_with_covariance: true
-  listen_tf: true
+  listen_tf: false
   frame_id: "local_origin"
   child_frame_id: "vision"
   tf_rate_limit: 10.0
