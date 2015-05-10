@@ -1,0 +1,35 @@
+<launch>
+
+	<arg name="fcu_url" default="serial:///dev/ttyUSB0:921600" />
+	<arg name="gcs_url" default="udp://:14556@$ROS_IP:14550" />
+	<arg name="tgt_system" default="1" />
+	<arg name="tgt_component" default="50" />
+ 
+	<node name="mavros" pkg="mavros" type="mavros_node" output="screen">
+		<param name="fcu_url" value="$(arg fcu_url)" />
+		<param name="gcs_url" value="$(arg gcs_url)" />
+		<param name="target_system_id" value="$(arg tgt_system)" />
+		<param name="target_component_id" value="$(arg tgt_component)" />
+ 
+		<rosparam command="load" file="$(find mavros)/launch/px4_config.yaml" />
+ 
+	</node>
+
+	<node name="camera" pkg="usb_cam" type="usb_cam_node">
+            <param name="video_device" value="/dev/video0" />
+            <param name="image_width" value="640" />
+            <param name="image_height" value="480" />
+            <param name="pixel_format" value="yuyv" />
+            <param name="framerate" value="20" />
+            <param name="camera_frame_id" value="webcam" />
+    </node>
+
+    <node ns="camera" name="image_proc" pkg="image_proc" type="image_proc">
+    </node>
+
+    <node name="ptam" pkg="ptam" type="ptam" clear_params="true" output="screen">
+	    <remap from="image" to="$(optenv IMAGE /camera/image_rect)" />
+        <remap from="pose" to="pose"/>
+	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
+    </node>
+</launch>
