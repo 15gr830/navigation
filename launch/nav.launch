@@ -12,7 +12,7 @@
 		<param name="target_system_id" value="$(arg tgt_system)" />
 		<param name="target_component_id" value="$(arg tgt_component)" />
  
-		<rosparam command="load" file="$(find mavros)/launch/px4_config.yaml" />
+		<rosparam command="load" file="$(find navigation)/launch/px4_config.yaml" />
  
 	</node>
 
