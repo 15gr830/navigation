@@ -8,5 +8,3 @@ export ROS_MASTER_URI=http://$ROS_IP:11311
 # Initialise ROS and nodes
 roscore &
 roslaunch navigation nav.launch &
-
-exit 0
