@@ -23,6 +23,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
         now = rospy.get_rostime()
         got_pos = PoseWithCovarianceStamped()
+        vicon_pos = PoseWithCovarianceStamped()
         #rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
@@ -30,12 +31,21 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         got_pos.pose.pose.position.y = data[1]
         got_pos.pose.pose.position.z = data[2]
 
+        vicon_pos.header.stamp.secs = now.secs
+        vicon_pos.header.stamp.nsecs = now.nsecs
+        vicon_pos.pose.pose.position.x = data[3]
+        vicon_pos.pose.pose.position.y = data[4]
+        vicon_pos.pose.pose.position.z = data[5]
+
         pub_got.publish(got_pos)
+        pub_vicon.publish(vicon_pos)
 
 
 def talker():
     global pub_got
+    #global pub_vicon
     pub_got = rospy.Publisher('/mavros/global_position/local', PoseWithCovarianceStamped, queue_size=10)
+    #pub_vicon = rospy.Publisher('/vicon_data', PoseWithCovarianceStamped, queue_size=10)
     rospy.init_node('mat2ros', anonymous=False)
 
     #Start MatlabUDPHandler 
