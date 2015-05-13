@@ -41,11 +41,11 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         pub_vicon.publish(vicon_pos)
 
 
-def talker():
+def init():
     global pub_got
-    #global pub_vicon
+    global pub_vicon
     pub_got = rospy.Publisher('/mavros/global_position/local', PoseWithCovarianceStamped, queue_size=10)
-    #pub_vicon = rospy.Publisher('/vicon_data', PoseWithCovarianceStamped, queue_size=10)
+    pub_vicon = rospy.Publisher('/vicon_data', PoseWithCovarianceStamped, queue_size=10)
     rospy.init_node('mat2ros', anonymous=False)
 
     #Start MatlabUDPHandler 
@@ -66,6 +66,6 @@ get_got.daemon = True
 
 if __name__ == '__main__':
     try:
-        talker()
+        init()
     except rospy.ROSInterruptException:
         pass
