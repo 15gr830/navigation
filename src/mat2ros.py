@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy, SocketServer, threading, struct
 from std_msgs.msg import String
-from geometry_msgs.msg import PoseWithCovarianceStamped
+from geometry_msgs.msg import PoseStamped
 
 class myThread1(threading.Thread):
     def __init__(self, threadID, name):
@@ -22,20 +22,20 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         data = struct.unpack('>' + 'd' * numOfValues, data)
 
         now = rospy.get_rostime()
-        got_pos = PoseWithCovarianceStamped()
-        vicon_pos = PoseWithCovarianceStamped()
+        got_pos = PoseStamped()
+        vicon_pos = PoseStamped()
         #rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
-        got_pos.pose.pose.position.x = data[0]
-        got_pos.pose.pose.position.y = data[1]
-        got_pos.pose.pose.position.z = data[2]
+        got_pos.pose.position.x = data[0]
+        got_pos.pose.position.y = data[1]
+        got_pos.pose.position.z = data[2]
 
         vicon_pos.header.stamp.secs = now.secs
         vicon_pos.header.stamp.nsecs = now.nsecs
-        vicon_pos.pose.pose.position.x = data[3]
-        vicon_pos.pose.pose.position.y = data[4]
-        vicon_pos.pose.pose.position.z = data[5]
+        vicon_pos.pose.position.x = data[3]
+        vicon_pos.pose.position.y = data[4]
+        vicon_pos.pose.position.z = data[5]
 
         pub_got.publish(got_pos)
         pub_vicon.publish(vicon_pos)
@@ -44,8 +44,8 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 def init():
     global pub_got
     global pub_vicon
-    pub_got = rospy.Publisher('/mavros/global_position/local', PoseWithCovarianceStamped, queue_size=10)
-    pub_vicon = rospy.Publisher('/vicon_data', PoseWithCovarianceStamped, queue_size=10)
+    pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
+    pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=10)
     rospy.init_node('mat2ros', anonymous=False)
 
     #Start MatlabUDPHandler 
