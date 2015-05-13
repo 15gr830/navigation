@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-import from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
+from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 
 def callback(data):
 	ptam_pos = PoseStamped()
