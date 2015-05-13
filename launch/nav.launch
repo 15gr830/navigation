@@ -33,9 +33,9 @@
 	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
     </node>
 
-    <node name="ptam_translator" pkg="navigation" type="ptam_translator">
+    <node name="ptam_translator" pkg="navigation" type="ptam_translator" output="screen">
     </node>
 
-    <node name="mat2ros" pkg="navigation" type="mat2ros">
+    <node name="mat2ros" pkg="navigation" type="mat2ros" output="screen">
     </node>
 </launch>
