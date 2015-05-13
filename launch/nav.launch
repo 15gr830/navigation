@@ -32,4 +32,10 @@
         <remap from="pose" to="pose"/>
 	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
     </node>
+
+    <node name="ptam_translator" pkg="navigation" type="ptam_translator">
+    </node>
+
+    <node name="mat2ros" pkg="navigation" type="mat2ros">
+    </node>
 </launch>
