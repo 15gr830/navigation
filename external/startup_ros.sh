@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Paste to crontab
+# @reboot until [ -d /home/odroid ]; do sleep 1; done; /usr/bin/startup_ros.sh
+
 while true
 do
 	ping -c 1 192.168.1.149

@@ -13,7 +13,6 @@
 		<param name="target_component_id" value="$(arg tgt_component)" />
  
 		<rosparam command="load" file="$(find navigation)/launch/px4_config.yaml" />
- 
 	</node>
 
 	<node name="camera" pkg="usb_cam" type="usb_cam_node">
