@@ -36,10 +36,10 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         vicon_pos.pose.position.x = data[3]
         vicon_pos.pose.position.y = data[4]
         vicon_pos.pose.position.z = data[5]
-        vicon_pos.pose.orientation.w = data[6]
-        vicon_pos.pose.orientation.x = data[7]
-        vicon_pos.pose.orientation.y = data[8]
-        vicon_pos.pose.orientation.z = data[9]
+        vicon_pos.pose.orientation.x = data[6]
+        vicon_pos.pose.orientation.y = data[7]
+        vicon_pos.pose.orientation.z = data[8]
+        vicon_pos.pose.orientation.w = data[9]
 
         pub_got.publish(got_pos)
         pub_vicon.publish(vicon_pos)
