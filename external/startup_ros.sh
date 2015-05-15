@@ -13,7 +13,7 @@ do
 		break;
 	else
 		echo ‘Network is not available, waiting..’
-		sleep 5
+		sleep 5	
 	fi
 	done
 
