@@ -12,7 +12,8 @@
 		<param name="gcs_url" value="$(arg gcs_url)" />
 		<param name="target_system_id" value="$(arg tgt_system)" />
 		<param name="target_component_id" value="$(arg tgt_component)" />
- 
+ 		
+ 		<arg name="pluginlists_yaml" value="$(find mavros)/launch/px4_pluginlists.yaml" />
 		<rosparam command="load" file="$(find navigation)/launch/px4_config.yaml" />
 	</node>
 </launch>
