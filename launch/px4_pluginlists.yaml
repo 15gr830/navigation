@@ -7,7 +7,10 @@ plugin_blacklist:
 - 'setpoint_velocity'
 - 'actuator_control'
 - 'px4flow'
-- 'mission'
+- 'rc_io'
+- 'vfr_hud'
+- 'visualization'
+- 'waypoint'
 
 plugin_whitelist: []
 #- 'sys_*'
