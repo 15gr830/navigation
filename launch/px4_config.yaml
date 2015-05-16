@@ -33,7 +33,7 @@ tdr_radio:
 
 # command
 cmd:
-  use_comp_id_system_control: false # quirk for some old FCUs
+  use_comp_id_system_control: true # quirk for some old FCUs
 
 # dummy
 # None
