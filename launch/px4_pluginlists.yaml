@@ -5,7 +5,7 @@ plugin_blacklist:
 - 'setpoint_attitude'
 - 'setpoint_accel'
 - 'setpoint_velocity'
-- 'actuator_control'
+#- 'actuator_control'
 - 'px4flow'
 - 'rc_io'
 - 'vfr_hud'
