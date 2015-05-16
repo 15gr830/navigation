@@ -1,16 +1,14 @@
 #!/usr/bin/env python
-
 from __future__ import print_function
-
-import argparse
 
 import rospy
 import mavros
-import sys, struct, time, os, select
+import struct
 import numpy as np
 from mavros.utils import *
 from mavros import command
 from geometry_msgs.msg import PoseStamped
+import parameter as parm
 
 def arm(state):
     try:
@@ -23,7 +21,7 @@ def arm(state):
 
     return ret
 
-def do_long(state):
+def start_lqr(state):
     if state:
       start = 1
     else:
@@ -40,8 +38,19 @@ def do_long(state):
     except rospy.ServiceException as ex:
         fault(ex)
 
-def safety_area(pose):
-    vicon_data = PoseStamped()
+def safety_area(data):
+    x = data.pose.position.x
+    y = data.pose.position.y
+    z = data.pose.position.z
+
+    abs_x = np.absolute(x)
+    abs_y = np.absolute(y)
+
+    if (abs_x > parm.sandbox[0]) or (abs_y > parm.sandbox[1]) or (z > parm.sandbox[2]) :
+                start_lqr(False)
+                arm(False)
+                rospy.loginfo("\n[GCS] QUAD OUTSIDE SANDBOX")
+
 
 
 
@@ -50,28 +59,31 @@ def odrone_interface():
     rospy.Subscriber('/vicon_data', PoseStamped, safety_area)
 
     
-    try:
-        while not rospy.is_shutdown():
-            key = raw_input("\nODRONE >> ")
-            
-            if key == 'a' :
-                arm(True)
+    while True:
+        key = raw_input("\n[GCS] ODRONE >> ")
+        
+        if key == 'a' :
+            arm(True)
 
-            elif key == 'd' :
-                arm(False)
+        elif key == 'd' :
+            arm(False)
 
-            elif key == 'w' :
-                do_long(True)
+        elif key == 'w' :
+            start_lqr(True)
 
-            elif key == 's' :
-                do_long(False)
-    except KeyboardInterrupt:
-        pass
+        elif key == 's' :
+            start_lqr(False)
+
+        elif key == 'q' :
+            start_lqr(False)
+            arm(False)
+            break
 
 
 if __name__ == '__main__':
     try:
         odrone_interface()
-    except rospy.ROSInterruptException, KeyboardInterrupt:
+    except rospy.ROSInterruptException:
         pass
+
 
