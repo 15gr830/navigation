@@ -3,9 +3,11 @@ plugin_blacklist:
 - '3dr_radio'
 #- 'setpoint_position'
 - 'setpoint_attitude'
-#- 'setpoint_accel'
+- 'setpoint_accel'
 - 'setpoint_velocity'
 - 'actuator_control'
+- 'px4flow'
+- 'mission'
 
 plugin_whitelist: []
 #- 'sys_*'
