@@ -1,15 +1,18 @@
 <launch>
 
-	<arg name="fcu_url" default="serial:///dev/ttyACM0:921600" />
+	<env name="ROS_IP" value="192.168.1.149"/>
+
+	<arg name="fcu_url" default="serial:///dev/ttyUSB0:921600" />
+	<arg name="gcs_url" default="udp://:14556@$(env ROS_IP):14550" />
 	<arg name="tgt_system" default="1" />
 	<arg name="tgt_component" default="50" />
  
 	<node name="mavros" pkg="mavros" type="mavros_node" output="screen">
 		<param name="fcu_url" value="$(arg fcu_url)" />
+		<param name="gcs_url" value="$(arg gcs_url)" />
 		<param name="target_system_id" value="$(arg tgt_system)" />
 		<param name="target_component_id" value="$(arg tgt_component)" />
  
 		<rosparam command="load" file="$(find navigation)/launch/px4_config.yaml" />
- 
 	</node>
 </launch>
