@@ -13,5 +13,5 @@ plugin_blacklist:
 - 'waypoint'
 
 plugin_whitelist: []
-- 'sys_status'
-- 'sys_time'
+#- 'sys_status'
+#- 'sys_time'
