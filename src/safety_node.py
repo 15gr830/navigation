@@ -41,13 +41,13 @@ def do_long(state):
         fault(ex)
 
 def safety_area(pose):
-    pose = PoseStamped
+    vicon_data = PoseStamped()
 
 
 
 def odrone_interface():
     rospy.init_node('odrone_interface', anonymous=False)
-    rospy.Subscriber('/vicon_data', PoseStamped, pose)
+    rospy.Subscriber('/vicon_data', PoseStamped, safety_area)
 
     
     try:
