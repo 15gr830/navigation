@@ -6,10 +6,11 @@ import argparse
 
 import rospy
 import mavros
+import sys, struct, time, os, select
+import numpy as np
 from mavros.utils import *
 from mavros import command
-from mavros.srv import SetMode
-
+from geometry_msgs.msg import PoseStamped
 
 def arm(state):
     try:
@@ -22,10 +23,55 @@ def arm(state):
 
     return ret
 
+def do_long(state):
+    if state:
+      start = 1
+    else:
+      start = -1
 
-def main():
-	arm(True)
-	
+    try:
+        ret = command.long(command=30002, confirmation=1,
+                      param1=start,
+                      param2=0,
+                      param3=0,
+                      param4=0,
+                      param5=0,
+                      param6=0)
+    except rospy.ServiceException as ex:
+        fault(ex)
+
+def safety_area(pose):
+    pose = PoseStamped
+
+
+
+def odrone_interface():
+    rospy.init_node('odrone_interface', anonymous=False)
+    rospy.Subscriber('/vicon_data', PoseStamped, pose)
+
+    
+    try:
+        while not rospy.is_shutdown():
+            key = raw_input("\nODRONE >> ")
+            
+            if key == 'a' :
+                arm(True)
+
+            elif key == 'd' :
+                arm(False)
+
+            elif key == 'w' :
+                do_long(True)
+
+            elif key == 's' :
+                do_long(False)
+    except KeyboardInterrupt:
+        pass
+
 
 if __name__ == '__main__':
-    main()
+    try:
+        odrone_interface()
+    except rospy.ROSInterruptException, KeyboardInterrupt:
+        pass
+
