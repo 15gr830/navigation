@@ -41,16 +41,16 @@ cmd:
 # ftp
 # None
 
-## global_position
-#global_position:
-#  send_tf: false            # send TF?
-#  frame_id: "local_origin"  # pose and TF frame_id
-#  child_frame_id: "fcu"     # pose and TF child_frame_id
-#  rot_covariance: 99999.0   # covariance for attitude?
+# global_position
+global_position:
+  send_tf: false            # send TF?
+  frame_id: "local_origin"  # pose and TF frame_id
+  child_frame_id: "fcu"     # pose and TF child_frame_id
+  rot_covariance: 99999.0   # covariance for attitude?
 
 # gps
-#gps:
-#  frame_id: "gps"
+gps:
+  frame_id: "gps"
 
 # imu_pub
 imu:
@@ -106,43 +106,43 @@ setpoint_position:
 # None
 
 # waypoint
-#mission:
-#  pull_after_gcs: true  # update mission if gcs updates
+mission:
+  pull_after_gcs: true  # update mission if gcs updates
 
 # --- mavros extras plugins (same order) ---
 
 # image_pub
-#image:
-#  frame_id: "px4flow"
+image:
+  frame_id: "px4flow"
 
-## mocap_pose_estimate
-#mocap:
+# mocap_pose_estimate
+mocap:
   # select mocap source
-#  use_tf: false   # ~mocap/tf
-#  use_pose: true  # ~mocap/pose
+  use_tf: false   # ~mocap/tf
+  use_pose: true  # ~mocap/pose
 
-#px4flow:
-#  frame_id: "px4flow"
-#  ranger_fov: !degrees 0.0  # XXX TODO
-#  ranger_min_range: 0.3     # meters
-#  ranger_max_range: 5.0     # meters
+px4flow:
+  frame_id: "px4flow"
+  ranger_fov: !degrees 0.0  # XXX TODO
+  ranger_min_range: 0.3     # meters
+  ranger_max_range: 5.0     # meters
 
-## vision_pose_estimate
-#vision_pose:
-#  pose_with_covariance: true
-#  listen_tf: false
-#  frame_id: "local_origin"
-#  child_frame_id: "vision"
-#  tf_rate_limit: 10.0
+# vision_pose_estimate
+vision_pose:
+  pose_with_covariance: false
+  listen_tf: false
+  frame_id: "local_origin"
+  child_frame_id: "vision"
+  tf_rate_limit: 10.0
 
 # vision_speed_estimate
-#vision_speed:
-#  listen_twist: false
+vision_speed:
+  listen_twist: false
 
 # visualization
-#visualization:
-#  fixed_frame_id: "local_origin"
-#  child_frame_id: "fcu"
-#  marker_scale: 2.0
+visualization:
+  fixed_frame_id: "local_origin"
+  child_frame_id: "fcu"
+  marker_scale: 2.0
 
 # vim:ts=2 sw=2 et:
