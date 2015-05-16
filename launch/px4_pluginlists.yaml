@@ -13,4 +13,4 @@ plugin_blacklist:
 - 'waypoint'
 
 plugin_whitelist: []
-#- 'sys_*'
+- 'sys_*'
