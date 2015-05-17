@@ -50,6 +50,7 @@ def safety_area(data):
                 start_lqr(False)
                 arm(False)
                 rospy.loginfo("\n[GCS] QUAD OUTSIDE SANDBOX")
+                rospy.sleep(2)
 
 
 
