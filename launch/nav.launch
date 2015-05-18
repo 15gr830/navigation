@@ -16,7 +16,7 @@
         <arg name="tgt_component" value="$(arg tgt_component)" />
     </include>
 
-	<node name="camera" pkg="usb_cam" type="usb_cam_node">
+	<!-- <node name="camera" pkg="usb_cam" type="usb_cam_node">
             <param name="video_device" value="/dev/video0" />
             <param name="image_width" value="640" />
             <param name="image_height" value="480" />
@@ -26,7 +26,9 @@
     </node>
 
     <node ns="camera" name="image_proc" pkg="image_proc" type="image_proc">
-    </node>
+    </node> -->
+
+    <include file="$(find usb_cam)/launch/usb_cam.launch" />
 
     <node name="ptam" pkg="ptam" type="ptam" clear_params="true" output="screen">
 	    <remap from="image" to="$(optenv IMAGE /camera/image_rect)" />
