@@ -35,4 +35,5 @@ export ROS_MASTER_URI=http://$ROS_IP:11311
 # source /home/odroid/.bashrc
 
 roscore &
-#roslaunch navigation nav.launch
+sleep 5
+roslaunch navigation nav_mav.launch &
