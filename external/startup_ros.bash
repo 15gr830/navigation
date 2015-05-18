@@ -44,7 +44,7 @@ case "$1" in
                 ;;
 
         stop )
-                killall roscore
+                rosnode kill /mavros
                 ;;
 esac
 exit 0
