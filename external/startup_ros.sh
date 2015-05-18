@@ -15,7 +15,7 @@ do
 		echo ‘Network is not available, waiting..’
 		sleep 5	
 	fi
-	done
+done
 
 # Initialise ROS and nodes
 #source /opt/ros/indigo/setup.bash
