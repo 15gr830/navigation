@@ -44,7 +44,7 @@ case "$1" in
 
         stop )
                 source /opt/ros/indigo/setup.bash
-                rosnode kill /mavros
+                rosnode kill /mavros /camera/image_proc /camera /ptam /ptam_translator /mat2ros
                 ;;
 esac
 exit 0
