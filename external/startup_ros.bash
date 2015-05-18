@@ -44,6 +44,7 @@ case "$1" in
                 ;;
 
         stop )
+                source /opt/ros/indigo/setup.bash
                 rosnode kill /mavros
                 ;;
 esac
