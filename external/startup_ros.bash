@@ -27,7 +27,7 @@ case "$1" in
                                 break;
                         else
                                 echo ‘Network is not available, waiting..’
-                                sleep 5 
+                                sleep 3 
                         fi
                 done
 
@@ -36,11 +36,10 @@ case "$1" in
                 source /home/odroid/ros/devel/setup.bash
                 export ROS_IP=$(hostname -I)
                 export ROS_MASTER_URI=http://$ROS_IP:11311
-                # source /home/odroid/.bashrc
 
                 roscore &
-                sleep 5
-                roslaunch navigation nav_mav.launch &
+                sleep 3
+                roslaunch navigation nav.launch &
                 ;;
 
         stop )
