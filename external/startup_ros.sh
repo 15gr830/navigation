@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Paste to crontab
 # @reboot until [ -d /home/odroid ]; do sleep 1; done; /usr/bin/startup_ros.sh
