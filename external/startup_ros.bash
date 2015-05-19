@@ -13,8 +13,6 @@
 # Paste to crontab
 # @reboot until [ -d /home/odroid ]; do sleep 1; done; /usr/bin/startup_ros.sh
 
-USER="odroid"
-
 case "$1" in
         start )
                 while true
@@ -38,13 +36,14 @@ case "$1" in
                 export ROS_MASTER_URI=http://$ROS_IP:11311
 
                 roscore &
-                sleep 3
+                until rostopic list ; do sleep 1; done
                 roslaunch navigation nav.launch &
                 ;;
 
         stop )
                 source /opt/ros/indigo/setup.bash
                 rosnode kill -a
+                killall roscore
                 ;;
 esac
 exit 0
