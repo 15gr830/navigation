@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy, SocketServer, thread, threading, struct
 from std_msgs.msg import String
-from geometry_msgs.msg import PoseStamped
+from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 
 class Positions:
     def __init__(self, pub_got, pub_vicon, pub_ptam, rospy):
