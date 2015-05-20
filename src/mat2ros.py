@@ -48,6 +48,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
 
 def main():
+    global pub_got, pub_vicon
     pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=1)
     pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=1)
     rospy.init_node('mat2ros', anonymous=False)
