@@ -30,8 +30,8 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
         got_pos.pose.position.x = data[2]/1000
-        got_pos.pose.position.y = data[0]/1000
-        got_pos.pose.position.z = data[1]/1000
+        got_pos.pose.position.y = data[1]/1000
+        got_pos.pose.position.z = data[0]/1000
 
         vicon_pos.header.stamp.secs = now.secs
         vicon_pos.header.stamp.nsecs = now.nsecs
