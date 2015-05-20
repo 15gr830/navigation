@@ -16,4 +16,7 @@
 		<arg name="tgt_system" value="$(arg tgt_system)" />
 		<arg name="tgt_component" value="$(arg tgt_component)" />
 	</include>
+
+	<node name="mat2ros" pkg="navigation" type="mat2ros.py" output="screen">
+    	</node>
 </launch>
