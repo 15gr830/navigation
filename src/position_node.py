@@ -18,7 +18,7 @@ class Positions:
         except:
             print("Error: Unable to start thread")
 
-        rospy.Subscriber("/vslam/pose",PoseWithCovarianceStamped, send_ptam, queue_size=10)
+        rospy.Subscriber("/vslam/pose",PoseWithCovarianceStamped, self.send_ptam, queue_size=10)
 
     def send_ptam(self, topic):
         ptam_pos = PoseStamped()
