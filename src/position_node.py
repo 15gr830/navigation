@@ -44,15 +44,15 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
-        got_pos.pose.position.x = data[0]
-        got_pos.pose.position.y = data[1]
-        got_pos.pose.position.z = data[2]
+        got_pos.pose.position.x = data[0]/1000
+        got_pos.pose.position.y = data[1]/1000
+        got_pos.pose.position.z = data[2]/1000
 
         vicon_pos.header.stamp.secs = now.secs
         vicon_pos.header.stamp.nsecs = now.nsecs
-        vicon_pos.pose.position.x = data[3]
-        vicon_pos.pose.position.y = data[4]
-        vicon_pos.pose.position.z = data[5]
+        vicon_pos.pose.position.x = data[3]/1000
+        vicon_pos.pose.position.y = data[4]/1000
+        vicon_pos.pose.position.z = data[5]/1000
         vicon_pos.pose.orientation.x = data[6]
         vicon_pos.pose.orientation.y = data[7]
         vicon_pos.pose.orientation.z = data[8]
