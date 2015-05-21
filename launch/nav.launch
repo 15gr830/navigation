@@ -24,9 +24,12 @@
 	    <rosparam file="$(find ptam)/PtamFixParams.yaml"/>
     </node>
 
-    <node name="ptam_translator" pkg="navigation" type="ptam_translator.py" output="screen">
+    <!-- <node name="ptam_translator" pkg="navigation" type="ptam_translator.py" output="screen">
     </node>
 
     <node name="mat2ros" pkg="navigation" type="mat2ros.py" output="screen">
+    </node> -->
+
+    <node name="position_node" pkg="navigation" type="position_node.py" output="screen">
     </node>
 </launch>
