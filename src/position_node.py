@@ -4,10 +4,7 @@ from std_msgs.msg import String
 from geometry_msgs.msg import PoseStamped, PoseWithCovarianceStamped
 
 class Positions:
-    def __init__(self, pub_got, pub_vicon, pub_ptam, rospy):
-        self.pub_got = pub_got
-        self.pub_vicon = pub_vicon
-        self.pub_ptam = pub_ptam
+    def __init__(self, rospy):
         self.rospy = rospy
         
         self.HOST = "0.0.0.0"
@@ -18,25 +15,21 @@ class Positions:
         except:
             print("Error: Unable to start thread")
 
-        rospy.Subscriber("/vslam/pose",PoseWithCovarianceStamped, self.send_ptam, queue_size=10)
+        rospy.Subscriber("/vslam/pose", PoseWithCovarianceStamped, self.send_ptam, queue_size=10)
 
     def send_ptam(self, topic):
         ptam_pos = PoseStamped()
         ptam_pos.header = topic.header
         ptam_pos.pose = topic.pose.pose
 
-        self.pub_ptam.publish(ptam_pos)
+        pub_ptam.publish(ptam_pos)
 
 
     def get_data(self) :
-        server = SocketServer.UDPServer((self.HOST, self.PORT), MatlabUDPHandler(self.pub_got, self.pub_vicon, self.rospy))
+        server = SocketServer.UDPServer((self.HOST, self.PORT), MatlabUDPHandler)
         server.serve_forever()
 
 class MatlabUDPHandler(SocketServer.BaseRequestHandler):
-    def __init__(self, pub_got, pub_vicon, rospy):
-        self.pub_got = pub_got
-        self.pub_vicon = pub_vicon
-        self.rospy = rospy
 
     def handle(self):
         data = self.request[0]
@@ -48,7 +41,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         now = rospy.get_rostime()
         got_pos = PoseStamped()
         vicon_pos = PoseStamped()
-        #rospy.loginfo("Time %i", now.secs)
+        rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
         got_pos.pose.position.x = data[0]
@@ -65,18 +58,19 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         vicon_pos.pose.orientation.z = data[8]
         vicon_pos.pose.orientation.w = data[9]
 
-        self.pub_got.publish(got_pos)
-        self.pub_vicon.publish(vicon_pos)
+        pub_got.publish(got_pos)
+        pub_vicon.publish(vicon_pos)
 
 
 def init():
+    global pub_vicon, pub_ptam, pub_got
     pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
     pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=10)
     pub_ptam = rospy.Publisher('/mavros/vision_pose/pose', PoseStamped, queue_size=10)
     
     rospy.init_node('position_node', anonymous=False)
 
-    Positions(pub_got,pub_vicon,pub_ptam,rospy)
+    Positions(rospy)
     rospy.spin()
 
 if __name__ == '__main__':
