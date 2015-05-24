@@ -75,7 +75,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
         pub_got.publish(got_pos)
         pub_vicon.publish(vicon_pos)
-        pub_got_data(got_log)
+        pub_got_data.publish(got_log)
 
 
 def init():
