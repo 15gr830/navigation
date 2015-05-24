@@ -41,7 +41,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         now = rospy.get_rostime()
         got_pos = PoseStamped()
         vicon_pos = PoseStamped()
-        got_log = PoseStamped()
+        # got_log = PoseStamped()
         # rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
@@ -51,12 +51,12 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         # got_pos.pose.position.y = data[1]/1000
         # got_pos.pose.position.z = data[2]/1000
 
-        # GOT Data for log
-        got_log.header.stamp.secs = now.secs
-        got_log.header.stamp.nsecs = now.nsecs
-        got_log.pose.position.x = data[0]/1000
-        got_log.pose.position.y = data[1]/1000
-        got_log.pose.position.z = data[2]/1000
+        # # GOT Data for log
+        # got_log.header.stamp.secs = now.secs
+        # got_log.header.stamp.nsecs = now.nsecs
+        # got_log.pose.position.x = data[0]/1000
+        # got_log.pose.position.y = data[1]/1000
+        # got_log.pose.position.z = data[2]/1000
 
         # Switched to Vicon data (Comment if flying with GOT data)
         got_pos.pose.position.x = data[3]/1000
@@ -73,19 +73,19 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         vicon_pos.pose.orientation.z = data[8]
         vicon_pos.pose.orientation.w = data[9]
 
-        pub_got.publish(got_pos)
+        # pub_got.publish(got_pos)
         pub_vicon.publish(vicon_pos)
-        pub_got_data.publish(got_log)
+        # pub_got_data.publish(got_log)
 
 
 def init():
-    global pub_vicon, pub_ptam, pub_got, pub_got_data
+    global pub_vicon, pub_ptam, pub_got
     pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
     pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=10)
     pub_ptam = rospy.Publisher('/mavros/vision_pose/pose', PoseStamped, queue_size=10)
 
-    # Used to measure GOT Positions for log
-    pub_got_data = rospy.Publisher('/got_data', PoseStamped, queue_size=10)
+    # # Used to measure GOT Positions for log
+    # pub_got_data = rospy.Publisher('/got_data', PoseStamped, queue_size=10)
     
     rospy.init_node('position_node', anonymous=False)
 
