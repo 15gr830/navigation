@@ -74,6 +74,9 @@ def init():
     pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
     pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=10)
     pub_ptam = rospy.Publisher('/mavros/vision_pose/pose', PoseStamped, queue_size=10)
+
+    # Used to measure GOT Positions for log
+    pub_got_data = rospy.Publisher('/got_data', PoseStamped, queue_size=10)
     
     rospy.init_node('position_node', anonymous=False)
 
