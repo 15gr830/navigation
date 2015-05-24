@@ -45,12 +45,17 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
         
-        # # GOT Data
+        # # GOT Data (Comment if flying with VICON data)
         # got_pos.pose.position.x = data[0]/1000
         # got_pos.pose.position.y = data[1]/1000
         # got_pos.pose.position.z = data[2]/1000
 
-        # Switched to Vicon data 
+        # GOT Data for log
+        pub_got_data.pose.position.x = data[0]/1000
+        pub_got_data.pose.position.y = data[1]/1000
+        pub_got_data.pose.position.z = data[2]/1000
+
+        # Switched to Vicon data (Comment if flying with GOT data)
         got_pos.pose.position.x = data[3]/1000
         got_pos.pose.position.y = data[4]/1000
         got_pos.pose.position.z = data[5]/1000
@@ -70,7 +75,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
 
 def init():
-    global pub_vicon, pub_ptam, pub_got
+    global pub_vicon, pub_ptam, pub_got, pub_got_data
     pub_got = rospy.Publisher('/mavros/mocap/pose', PoseStamped, queue_size=10)
     pub_vicon = rospy.Publisher('/vicon_data', PoseStamped, queue_size=10)
     pub_ptam = rospy.Publisher('/mavros/vision_pose/pose', PoseStamped, queue_size=10)
