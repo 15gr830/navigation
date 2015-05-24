@@ -41,6 +41,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         now = rospy.get_rostime()
         got_pos = PoseStamped()
         vicon_pos = PoseStamped()
+        got_log = PoseStamped()
         # rospy.loginfo("Time %i", now.secs)
         got_pos.header.stamp.secs = now.secs
         got_pos.header.stamp.nsecs = now.nsecs
@@ -51,9 +52,11 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
         # got_pos.pose.position.z = data[2]/1000
 
         # GOT Data for log
-        pub_got_data.pose.position.x = data[0]/1000
-        pub_got_data.pose.position.y = data[1]/1000
-        pub_got_data.pose.position.z = data[2]/1000
+        got_log.header.stamp.secs = now.secs
+        got_log.header.stamp.nsecs = now.nsecs
+        got_log.pose.position.x = data[0]/1000
+        got_log.pose.position.y = data[1]/1000
+        got_log.pose.position.z = data[2]/1000
 
         # Switched to Vicon data (Comment if flying with GOT data)
         got_pos.pose.position.x = data[3]/1000
@@ -72,6 +75,7 @@ class MatlabUDPHandler(SocketServer.BaseRequestHandler):
 
         pub_got.publish(got_pos)
         pub_vicon.publish(vicon_pos)
+        pub_got_data(got_log)
 
 
 def init():
