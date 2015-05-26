@@ -37,7 +37,7 @@ case "$1" in
 
                 roscore &
                 until rostopic list ; do sleep 1; done
-                roslaunch navigation nav_mav.launch &
+                roslaunch navigation nav.launch &
                 ;;
 
         stop )
